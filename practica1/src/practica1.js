@@ -1,3 +1,4 @@
+//GRUPO 15
 /**
  * MemoryGame es la clase que representa nuestro juego. Contiene un array con la cartas del juego,
  * el número de cartas encontradas (para saber cuándo hemos terminado el juego) y un texto con el mensaje
@@ -10,8 +11,23 @@ var MemoryGame = MemoryGame || {};
  */
 MemoryGame = function(gs) {
 
-};
+	function initGame(){
 
+	}
+
+	function draw(){
+
+	}
+
+	function loop(){
+
+	}
+
+	function onClick(){
+
+	}
+
+};
 
 
 /**
