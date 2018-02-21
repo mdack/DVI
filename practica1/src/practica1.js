@@ -11,7 +11,7 @@ var MemoryGame = MemoryGame || {};
  */
 MemoryGame = function(gs) {
 	var cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
-	var status = "";
+	var statusGame = "";
 	var board = [];
 
 	this.initGame = function(){
@@ -22,8 +22,8 @@ MemoryGame = function(gs) {
 		}
 
 		for(var i = 0; i < 16; i++){
-			var pos = Math.floor(Math.random() * pos_cards.length);
-        	board.push(cards[pos]);
+			var pos = Math.floor(Math.random() * cards.length);
+        	board.push(new MemoryGameCard(cards[pos]));
         	pos_cards.splice(pos, 1);
 		}
 
@@ -34,7 +34,11 @@ MemoryGame = function(gs) {
 		gs.drawMessage(status);
 
 		for(var i = 0; i < board.length; i++){
-			gs.draw(board[i], i);
+			if(board[i].status === 0){
+				gs.draw("back", i);
+			}else{
+				gs.draw(board[i].sprite, i);
+			}
 		}
 	}
 
@@ -56,5 +60,22 @@ MemoryGame = function(gs) {
  * @param {string} id Nombre del sprite que representa la carta
  */
 MemoryGameCard = function(id) {
+	this.sprite = id;
+	this.status = 0;
 
+	this.flip = function(){
+		this.status = 1;
+	}
+
+	this.found = function(){
+		this.status = 2;
+	}
+
+	this.compareTo = function(otherCard){
+
+		if(this.id === this.otherCard)
+			return true;
+
+		return false;
+	}
 };
