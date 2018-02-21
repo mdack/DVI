@@ -1,0 +1,341 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fun",
+				"function"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 490.0,
+		"last_filter": "bra",
+		"selected_items":
+		[
+			[
+				"bra",
+				"git: branch"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"gith",
+				"Github: Repository"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Add Repository"
+			],
+			[
+				"pack",
+				"Package Control: Add Repository"
+			],
+			[
+				"git:co",
+				"Git: Commit"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Pac",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 609.0
+	},
+	"console":
+	{
+		"height": 159.0,
+		"history":
+		[
+			"git commit",
+			"git commit -m \"Prueba\""
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/milag/git/DIV/practica1/src/auxiliar.js",
+		"/C/Users/milag/git/DIV/practica1/src/practica1.js",
+		"/D/DVI/DVI-master/MemoryGame/src/practica1.js",
+		"/C/Users/milag/AppData/Roaming/Sublime Text 3/Packages/Git/Git.sublime-settings",
+		"/C/Users/milag/AppData/Roaming/Sublime Text 3/Packages/User/Git.sublime-settings",
+		"/C/Users/milag/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Default (Linux).sublime-keymap",
+		"/D/Espacios_de_trabajo/workspace_visual_studio_code/Pr1_div/practica1/src/practica1.js",
+		"/D/Espacios_de_trabajo/workspace_visual_studio_code/Pr1_div/practica1/src/auxiliar.js",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob21/Prob21.cpp",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/siguelineas.py",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob24/Prob24.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob13 - Ovejas negras/Prob13.cpp",
+		"/C/Users/milag/Google Drive/TAIS/16.cpp",
+		"/C/Users/milag/Google Drive/TAIS/17.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob16/Prob16/Prob16.cpp",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/lab3.py",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/lab4.py",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/laberinto.py",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/08_ Calculo De La Mediana/Source.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/21_ Esquiando En Alaska/Source.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/11_ Los Amigos De Mis Amigos/Source.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/25_ Planificación De Conferencias/Source.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/20_ Oferta 3x2/Source.cpp",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob25/Source.cpp",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob08/Prob08.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/07_ Unidad Curiosa De Monitorización/Source.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 17/Source.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob31 - Subsecuencia común más larga/Prob31.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 15/Source.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob30 - Aiofobia/Prob30.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/09_ Árboles Libres/Source.cpp",
+		"/C/Users/milag/Google Drive/AW/Practica 2/Negocio/utils_games.js",
+		"/C/Users/milag/Downloads/Source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob08/Prob08/Prob08.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob10/Prob10.cpp",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob10/Prob10.cpp",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob15/Prob15.cpp",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob13/Prob13.cpp",
+		"/C/Users/milag/Google Drive/TAIS compartido/Prob12/Prob12.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 11/Source.cpp",
+		"/C/Users/milag/Google Drive/TAIS/06.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob08/Prob08.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob04/Prob04/Prob04.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob05/Prob05/Prob05.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob33/Prob33/Prob33.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob31/Prob31/Prob31.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob05/Prob05.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob40/Prob40/Prob40.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob32/Prob32/Prob32.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob31/Prob31.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob32/Prob32.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 40/Source.cpp",
+		"/C/Users/milag/Downloads/40",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/32_ De aventuras por el amazonas/source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob25/Prob25/Prob25.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/28_ Cazatesoros/Source.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 31/Source.cpp",
+		"/C/Users/milag/Documents/siguelineas.py",
+		"/C/Users/milag/Documents/analog.py",
+		"/C/Users/milag/Documents/lab.py",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob30/Prob30/Prob30.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 33/Source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob28/Prob28/Prob28.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob28/Prob28.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob37/Prob37/Prob37.cpp",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/recto.py",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob30/Prob30.cpp",
+		"/C/Users/milag/Google Drive/TAIS/31.cpp",
+		"/C/Users/milag/Google Drive/Robótica/Practica3/motorPasoAPaso.py",
+		"/C/Users/milag/Google Drive/Robótica/Practica3/motorPasoFun.py",
+		"/C/Users/milag/Google Drive/Robótica/Practica3/motorPaso.py",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob24/Prob24.cpp",
+		"/C/Users/milag/Downloads/user-img.bin",
+		"/C/Users/milag/Google Drive/TAIS/29.cpp",
+		"/D/Espacios_de_trabajo/giro_motor.py",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/motortest.py",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 28/Source.cpp",
+		"/C/Users/milag/Google Drive/TAIS/28.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob21/Prob21.cpp",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/sensor_analogico.py",
+		"/C/Users/milag/Google Drive/Robótica/CódigoRobot/sensor_analogico.c",
+		"/C/Users/milag/Downloads/solution.cpp",
+		"/C/Users/milag/Google Drive/TAIS/26TIMELIMIT.cpp",
+		"/C/Users/milag/Google Drive/TAIS/22.cpp",
+		"/C/Users/milag/Google Drive/TAIS/19.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/23_ Carreras de coches/Source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob21/Prob21/Prob21.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/19_ Agujeros En La Manguera/Source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob20/Prob20/Prob20.cpp",
+		"/D/AW/SaboteurProyect-master/Negocio/SAusuarios.js",
+		"/C/Users/milag/Downloads/tais12.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable5/dao_tasks.js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable5/main.js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable6/GestorTareas/public/tasks.html",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable6/GestorTareas/main.js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/ASIGNATURAS SUPERADAS/2º/FP/PRACTICAS/Practica 1/Practica1.cpp",
+		"/C/Users/milag/AppData/Local/Temp/Rar$DRa0.404/main.js",
+		"/C/Users/milag/AppData/Local/Temp/Rar$DRa0.654/package.json",
+		"/C/Users/milag/AppData/Local/Temp/Rar$DRa0.793/config.js",
+		"/D/Espacios_de_trabajo/workspace_brackets/entrega_1/entrega1.html",
+		"/D/Espacios_de_trabajo/workspace_visual_studio_code/Entrega6/views/tasks.ejs",
+		"/C/Users/milag/Downloads/dao_tasks (1).js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable5/dao_users.js",
+		"/C/Users/milag/Google Drive/TAIS/11.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Técnicas Algorítmicas en Ingeniería el Software/JUEZ/Evaluación/Prob15/Prob15.cpp",
+		"/C/Users/milag/Google Drive/TAIS/13.cpp",
+		"/C/Users/milag/Google Drive/TAIS/15.cpp",
+		"/C/Users/milag/Google Drive/TAIS/09.cpp",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 16/Source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob15/Prob15/Prob15.cpp",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Robótica/Practicas/Practica1/practica1.txt",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS PRÁCTICA/10_ Grafo Bipartito/Source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob12/Prob12/Prob12.cpp",
+		"/D/Espacios_de_trabajo/workspace_matlab/problemas_t1",
+		"/C/Users/milag/Google Drive/Juez TAIS/TAIS EVALUACIÓN/Problema 12/Source.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio_code/flujoNumeros.js",
+		"/C/Users/milag/Downloads/flujoNumeros.js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable3/Entrega3.js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable3/tareas.js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Entregas/Entregable3/test/tareas_test.js",
+		"/D/Espacios_de_trabajo/workspace_visual_studio/TAIS/Prob09/Prob09/Prob09.cpp",
+		"/D/Espacios_de_trabajo/workspace_visual_studio_code/Entrega3.js",
+		"/C/Users/milag/Google Drive/UNIVERSIDAD/Asignaturas no superadas/Aplicaciones Web/Tema 3 - Javascript/apuntes",
+		"/C/Users/milag/Downloads/PlantillaEspecificacion1.dfy",
+		"/C/Users/milag/Downloads/river.swf",
+		"/C/Users/milag/Documents/prueba.py",
+		"/C/Users/milag/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/D/Espacios_de_trabajo/workspace_brackets/practica_1/login.js"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"2",
+			"2}"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"1"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 44.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "index.sublime-project",
+	"replace":
+	{
+		"height": 53.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 188.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

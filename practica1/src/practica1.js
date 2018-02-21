@@ -10,17 +10,36 @@ var MemoryGame = MemoryGame || {};
  * Constructora de MemoryGame
  */
 MemoryGame = function(gs) {
+	var cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
+	var status = "";
+	var board = [];
 
-	function initGame(){
+	this.initGame = function(){
+		var pos_cards = [];
 
+		for(var i = 0; i < 16; i++){
+			pos_cards.push(i);
+		}
+
+		for(var i = 0; i < 16; i++){
+			var pos = Math.floor(Math.random() * pos_cards.length);
+        	board.push(cards[pos]);
+        	pos_cards.splice(pos, 1);
+		}
+
+		this.loop;
 	}
 
-	function draw(){
+	this.draw = function(){
+		gs.drawMessage(status);
 
+		for(var i = 0; i < board.length; i++){
+			gs.draw(board[i], i);
+		}
 	}
 
-	function loop(){
-
+	this.loop = function(){
+		setInterval(this.draw , 16);
 	}
 
 	function onClick(){
