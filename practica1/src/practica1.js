@@ -10,7 +10,7 @@ var MemoryGame = MemoryGame || {};
  * Constructora de MemoryGame
  */
 MemoryGame = function(gs) {
-	var cards = ["8-ball, "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
+	var cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
 	var status = "";
 	var board = [];
 
