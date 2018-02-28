@@ -12,7 +12,7 @@ var MemoryGame = MemoryGame || {};
 MemoryGame = function(gs) {
 	var cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
 	var statusGame = "";
-	var board = [];
+	var board = new Array(16);
 
 	this.initGame = function(){
 		var pos_cards = [];
@@ -21,9 +21,13 @@ MemoryGame = function(gs) {
 			pos_cards.push(i);
 		}
 
-		for(var i = 0; i < 16; i++){
-			var pos = Math.floor(Math.random() * cards.length);
-        	board.push(new MemoryGameCard(cards[pos]));
+		for(var i = 0; i < 8; i++){
+			var pos = Math.floor(Math.random() * pos_cards.length);
+        	board[pos_cards[pos]] = new MemoryGameCard(cards[i])
+        	pos_cards.splice(pos, 1);
+
+        	pos = Math.floor(Math.random() * pos_cards.length);
+        	board[pos_cards[pos]] = new MemoryGameCard(cards[i]);
         	pos_cards.splice(pos, 1);
 		}
 
