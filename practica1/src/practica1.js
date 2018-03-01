@@ -11,9 +11,11 @@ var MemoryGame = MemoryGame || {};
  */
 MemoryGame = function(gs) {
 	this.cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
-	this.statusGame = "";
+	this.statusGame = "Memory Game";
 	this.board = [];
-
+	this.flipped_card = undefined;
+	this.nCards = 0;
+	this.wait = false;
 
 	this.initGame = function(){
 		var pos_cards = [];
@@ -37,7 +39,7 @@ MemoryGame = function(gs) {
 	}
 
 	this.draw = function(){
-		gs.drawMessage(status);
+		gs.drawMessage(this.statusGame);
 
 		for(var i = 0; i < this.board.length; i++){
 			if(this.board[i].status === 0){
@@ -53,7 +55,39 @@ MemoryGame = function(gs) {
 	}
 
 	this.onClick = function(cardId){
+		var c = this.board[cardId];
 
+		if(c.status !== 2 && c.status !== 1 && !this.wait){ //Si la carta no ha sido ya girada
+			c.flip();
+
+			if(this.flipped_card === undefined){ //Si no hay otra carta girada
+				this.flipped_card = cardId;
+			}
+			else{
+				var other = this.board[this.flipped_card];
+				if(c.compareTo(other)){
+					this.board[cardId].found();
+					this.board[this.flipped_card].found();
+					this.statusGame = "Match found";
+					this.nCards += 2;
+					this.flipped_card = undefined;
+
+					if(nCards === 16){
+						this.statusGame = "You Win!!";
+					}
+				}else{
+					this.statusGame = "Try again";
+					this.wait = true;
+
+					setTimeout(function(){
+						this.board[cardId].status = 0;
+						this.board[this.flipped_card].status = 0;
+						this.flipped_card = undefined;
+						this.wait = false;
+					}, 1000);
+				}
+			}
+		}
 	}
 
 };
