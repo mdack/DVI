@@ -12,7 +12,9 @@ var MemoryGame = MemoryGame || {};
 MemoryGame = function(gs) {
 	this.cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
 	this.statusGame = "Memory Game";
+	this.gs = gs;
 	this.board = [];
+	this.boardLength = 0;
 	this.flipped_card = undefined;
 	this.nCards = 0;
 	this.wait = false;
@@ -20,6 +22,7 @@ MemoryGame = function(gs) {
 	this.initGame = function(){
 		var pos_cards = [];
 		this.board = new Array(16);
+		this.boardLength = 16;
 
 		for(var i = 0; i < 16; i++){
 			pos_cards.push(i);
@@ -35,23 +38,19 @@ MemoryGame = function(gs) {
         	pos_cards.splice(pos, 1);
 		}
 
-		this.loop();
+		this.draw(this);
 	}
 
-	this.draw = function(){
-		gs.drawMessage(this.statusGame);
+	this.draw = function(mg){
+		mg.gs.drawMessage(mg.statusGame);
 
-		for(var i = 0; i < this.board.length; i++){
-			if(this.board[i].status === 0){
-				gs.draw("back", i);
+		for(var i = 0; i < mg.boardLength; i++){
+			if(mg.board[i].status === 0){
+				mg.gs.draw("back", i);
 			}else{
-				gs.draw(this.board[i].sprite, i);
+				mg.gs.draw(mg.board[i].sprite, i);
 			}
 		}
-	}
-
-	this.loop = function(){
-		setInterval(this.draw() , 16);
 	}
 
 	this.onClick = function(cardId){
@@ -59,6 +58,7 @@ MemoryGame = function(gs) {
 
 		if(c.status !== 2 && c.status !== 1 && !this.wait){ //Si la carta no ha sido ya girada
 			c.flip();
+			this.draw(this);
 
 			if(this.flipped_card === undefined){ //Si no hay otra carta girada
 				this.flipped_card = cardId;
@@ -72,19 +72,21 @@ MemoryGame = function(gs) {
 					this.nCards += 2;
 					this.flipped_card = undefined;
 
-					if(nCards === 16){
+					if(this.nCards === 16){
 						this.statusGame = "You Win!!";
 					}
+					this.draw(this);
 				}else{
 					this.statusGame = "Try again";
+					this.draw(this);
 					this.wait = true;
+					this.board[cardId].unflip();
+					this.board[this.flipped_card].unflip();
+					this.flipped_card = undefined;
+					this.wait = false;
 
-					setTimeout(function(){
-						this.board[cardId].status = 0;
-						this.board[this.flipped_card].status = 0;
-						this.flipped_card = undefined;
-						this.wait = false;
-					}, 1000);
+
+					setTimeout(this.draw, 1000, this);
 				}
 			}
 		}
@@ -103,6 +105,10 @@ MemoryGameCard = function(id) {
 	this.sprite = id;
 	this.status = 0;
 
+	this.unflip = function(){
+		this.status = 0;
+	}
+
 	this.flip = function(){
 		this.status = 1;
 	}
@@ -112,8 +118,9 @@ MemoryGameCard = function(id) {
 	}
 
 	this.compareTo = function(otherCard){
-
-		if(this.id === this.otherCard.sprite)
+		console.log(this);
+		console.log(otherCard);
+		if(this.sprite === otherCard.sprite)
 			return true;
 
 		return false;

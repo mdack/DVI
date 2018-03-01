@@ -109,7 +109,7 @@ var InitCanvas = function(container, width, height, className) {
     if(!ctx){
 		window.alert("Update your browser!");
     }
-    containerElement.appendChild(canvas);
+	containerElement.appendChild(canvas);
     gs = new CustomGraphicServer();
 };
 
@@ -133,6 +133,7 @@ function start() {
 		},
 		function() {
 			game = new MemoryGame(gs);
+			console.log(gs);
 			game.initGame();
 		});
 }
