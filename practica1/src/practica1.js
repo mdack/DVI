@@ -10,12 +10,14 @@ var MemoryGame = MemoryGame || {};
  * Constructora de MemoryGame
  */
 MemoryGame = function(gs) {
-	var cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
-	var statusGame = "";
-	var board = new Array(16);
+	this.cards = ["8-ball", "potato", "dinosaur", "kronos", "rocket", "unicorn", "guy", "zeppelin"];
+	this.statusGame = "";
+	this.board = [];
+
 
 	this.initGame = function(){
 		var pos_cards = [];
+		this.board = new Array(16);
 
 		for(var i = 0; i < 16; i++){
 			pos_cards.push(i);
@@ -23,31 +25,31 @@ MemoryGame = function(gs) {
 
 		for(var i = 0; i < 8; i++){
 			var pos = Math.floor(Math.random() * pos_cards.length);
-        	board[pos_cards[pos]] = new MemoryGameCard(cards[i])
+        	this.board[pos_cards[pos]] = new MemoryGameCard(this.cards[i]);
         	pos_cards.splice(pos, 1);
 
         	pos = Math.floor(Math.random() * pos_cards.length);
-        	board[pos_cards[pos]] = new MemoryGameCard(cards[i]);
+        	this.board[pos_cards[pos]] = new MemoryGameCard(this.cards[i]);
         	pos_cards.splice(pos, 1);
 		}
 
-		this.loop;
+		this.loop();
 	}
 
 	this.draw = function(){
 		gs.drawMessage(status);
 
-		for(var i = 0; i < board.length; i++){
-			if(board[i].status === 0){
+		for(var i = 0; i < this.board.length; i++){
+			if(this.board[i].status === 0){
 				gs.draw("back", i);
 			}else{
-				gs.draw(board[i].sprite, i);
+				gs.draw(this.board[i].sprite, i);
 			}
 		}
 	}
 
 	this.loop = function(){
-		setInterval(this.draw , 16);
+		setInterval(this.draw() , 16);
 	}
 
 	this.onClick = function(cardId){
@@ -77,7 +79,7 @@ MemoryGameCard = function(id) {
 
 	this.compareTo = function(otherCard){
 
-		if(this.id === this.otherCard)
+		if(this.id === this.otherCard.sprite)
 			return true;
 
 		return false;
