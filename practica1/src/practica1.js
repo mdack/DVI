@@ -118,8 +118,6 @@ MemoryGameCard = function(id) {
 	}
 
 	this.compareTo = function(otherCard){
-		console.log(this);
-		console.log(otherCard);
 		if(this.sprite === otherCard.sprite)
 			return true;
 

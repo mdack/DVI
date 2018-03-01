@@ -65,10 +65,8 @@ var CustomGraphicServer = function() {
 		var row = Math.floor((y-this.vOffset)/this.tileHeight);
 		var col = Math.floor(x/this.tileWidth);
 		var card = null;
-		console.log({"r":row, "c":col});
 		if (row<4 && col<4) {
 			card = row*4+col;
-			console.log(card);
 		}
 		return card;
 	};
@@ -133,7 +131,6 @@ function start() {
 		},
 		function() {
 			game = new MemoryGame(gs);
-			console.log(gs);
 			game.initGame();
 		});
 }
