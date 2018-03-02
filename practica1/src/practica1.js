@@ -24,11 +24,11 @@ MemoryGame = function(gs) {
 		this.board = new Array(16);
 		this.boardLength = 16;
 
-		for(var i = 0; i < 16; i++){
+		for(var i = 0; i < this.boardLength; i++){
 			pos_cards.push(i);
 		}
 
-		for(var i = 0; i < 8; i++){
+		for(var i = 0; i < this.boardLength/2; i++){
 			var pos = Math.floor(Math.random() * pos_cards.length);
         	this.board[pos_cards[pos]] = new MemoryGameCard(this.cards[i]);
         	pos_cards.splice(pos, 1);
@@ -38,19 +38,23 @@ MemoryGame = function(gs) {
         	pos_cards.splice(pos, 1);
 		}
 
-		this.draw(this);
+		this.loop();
 	}
 
-	this.draw = function(mg){
-		mg.gs.drawMessage(mg.statusGame);
+	this.draw = function(){
+		this.gs.drawMessage(this.statusGame);
 
-		for(var i = 0; i < mg.boardLength; i++){
-			if(mg.board[i].status === 0){
-				mg.gs.draw("back", i);
+		for(var i = 0; i < this.boardLength; i++){
+			if(this.board[i].status === 0){
+				this.gs.draw("back", i);
 			}else{
-				mg.gs.draw(mg.board[i].sprite, i);
+				this.gs.draw(this.board[i].sprite, i);
 			}
 		}
+	}
+
+	this.loop = function(){
+		setInterval(this.draw.bind(this), 16);
 	}
 
 	this.onClick = function(cardId){
@@ -72,21 +76,20 @@ MemoryGame = function(gs) {
 					this.nCards += 2;
 					this.flipped_card = undefined;
 
-					if(this.nCards === 16){
+					if(this.nCards === this.boardLength){
 						this.statusGame = "You Win!!";
 					}
-					this.draw(this);
+
 				}else{
 					this.statusGame = "Try again";
-					this.draw(this);
 					this.wait = true;
-					this.board[cardId].unflip();
-					this.board[this.flipped_card].unflip();
-					this.flipped_card = undefined;
-					this.wait = false;
 
-
-					setTimeout(this.draw, 1000, this);
+					setTimeout(function(){
+						this.board[cardId].unflip();
+						this.board[this.flipped_card].unflip();
+						this.flipped_card = undefined;
+						this.wait = false;
+					}.bind(this), 1000);
 				}
 			}
 		}
