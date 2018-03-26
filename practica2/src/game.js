@@ -188,24 +188,16 @@ Player.prototype.step = function(dt){
   if(Game.keys['space'] && this.beer < 0){
     Game.keys['space'] = false;
     this.beer = this.reloadTime;
-    this.board.add(Object.create(Beer.prototype, {
-                      x: {
-                        value: this.x - this.w
-                      },
-
-                      y: {
-                        value: this.y
-                      }
-                    })
-                  );
+    this.board.add(new Beer(this.x, this.y));
   }
 };
 
 /* Beer Class */
 var Beer = function(x,y) {
-  this.setup('beer',{ vx: -150, damage: 10 });
+  this.setup('beer');
   this.x = x - this.w;
   this.y = y; 
+  this.vx = -50;
 };
 
 Beer.prototype = new Sprite();
@@ -265,5 +257,3 @@ Glass.prototype.step = function(dt){
 window.addEventListener("load", function() {
   Game.initialize("game",sprites,playGame);
 });
-
-
