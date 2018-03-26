@@ -49,6 +49,9 @@ var playGame = function() {
 
   var game = new GameBoard();
   game.add(new Player());
+
+  Game.setBoard(0, board);
+  Game.setBoard(1, game);
   /*
   board.add(new PlayerShip());
   board.add(new Level(level1,winGame));
@@ -137,9 +140,11 @@ var Scene = function(){
 
 Scene.prototype = new Sprite();
 
+Scene.prototype.step = function(dt){}
+
 /* Player Class */
 var Player = function() { 
-  this.setup('player', { x:421, y:377, reloadTime: 0.25});
+  this.setup('player', { x:421, y:377, reloadTime: 0.2});
   this.positions = [{x:325, y:90},
                     {x:357, y:185},
                     {x:389, y:281},
@@ -160,18 +165,17 @@ Player.prototype.step = function(dt){
 
   if(this.move < 0){
     if(Game.keys['up']){
+      this.p--;
       if(this.p < 0){
         this.p = 3;
       }
-      this.p--;
     }
 
    if(Game.keys['down']){
+      this.p++;
       if(this.p > 3){
         this.p = 0;
       }
-
-      this.p++;
     }
 
     this.x = this.positions[this.p].x;
@@ -184,13 +188,22 @@ Player.prototype.step = function(dt){
   if(Game.keys['space'] && this.beer < 0){
     Game.keys['space'] = false;
     this.beer = this.reloadTime;
-    this.board.add(new Beer(this.x, this.y));
+    this.board.add(Object.create(Beer.prototype, {
+                      x: {
+                        value: this.x - this.w
+                      },
+
+                      y: {
+                        value: this.y
+                      }
+                    })
+                  );
   }
 };
 
 /* Beer Class */
 var Beer = function(x,y) {
-  this.setup('beer',{ vx: -120, damage: 10 });
+  this.setup('beer',{ vx: -150, damage: 10 });
   this.x = x - this.w;
   this.y = y; 
 };
