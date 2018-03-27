@@ -49,6 +49,7 @@ var playGame = function() {
 
   var game = new GameBoard();
   game.add(new Player());
+  game.add(new Client(0, 90, 25));
 
   Game.setBoard(0, board);
   Game.setBoard(1, game);
@@ -189,7 +190,7 @@ Player.prototype.step = function(dt){
   if(Game.keys['space'] && this.beerTime < 0){
     Game.keys['space'] = false;
     this.beerTime = this.reloadTime;
-    this.board.add(new Beer(this.x, this.y, 50));
+    this.board.add(Object.create(new Beer(this.x, this.y, 50)));
   }
 };
 
@@ -206,46 +207,48 @@ Beer.prototype.type = OBJECT_BEER;
 
 Beer.prototype.step = function(dt)  {
   this.x += this.vx * dt;
+
+  if(this.board.collide(this, OBJECT_NPC)){
+    this.board.remove(this);
+  }
 };
 
 /* Class Client*/
-var Client = function(x, y) {
-  this.merge('NPC');
+var Client = function(x, y, vx) {
+  this.setup('NPC');
   this.x = x;
   this.y = y;
+  this.vx = vx;
 };
 
 Client.prototype = new Sprite();
 Client.prototype.type = OBJECT_NPC;
 
 Client.prototype.step = function(dt){
-  this.x -= this.vx * dt;
+  this.x += this.vx * dt;
 
-  var collision = this.board.collide(this,OBJECT_BEER);
-  if(collision) {
+  if(this.board.collide(this, OBJECT_BEER)) {
+    this.board.add(new Glass(this.x, this.y, 50));
     this.board.remove(this);
-    this.board.add(new Glass(this.x, this.y));
   }
 }
 
-Client.prototype.hit = function(dt){
-
-}
 
 /* Glass Class */
-var Glass = function(x, y){
-  this.setup('Glass', {vx: -120, damage:10});
+var Glass = function(x, y, vx){
+  this.setup('glass');
   this.x = x;
   this.y = y;
+  this.vx = vx;
 }
 
 Glass.prototype = new Sprite();
 Glass.prototype.type = OBJECT_GLASS;
 
 Glass.prototype.step = function(dt){
-  this.x -= this.vx * dt;
- var collision = this.board.collide(this,OBJECT_PLAYER);
-  if(collision) {
+  this.x += this.vx * dt;
+  
+  if(this.board.collide(this, OBJECT_PLAYER)) {
     this.board.remove(this);
   }
 }
