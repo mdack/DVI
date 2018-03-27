@@ -150,7 +150,7 @@ var Player = function() {
                     {x:389, y:281},
                     {x:421, y:377}];
   this.move = this.reloadTime;
-  this.beer = this.reloadTime;
+  this.beerTime = this.reloadTime;
   this.x = this.positions[0].x;
   this.y = this.positions[0].y;
   this.p = 0;
@@ -162,6 +162,7 @@ Player.prototype.type = OBJECT_PLAYER;
 
 Player.prototype.step = function(dt){
   this.move -= dt;
+  this.beerTime -= dt;
 
   if(this.move < 0){
     if(Game.keys['up']){
@@ -185,19 +186,19 @@ Player.prototype.step = function(dt){
   }
 
 
-  if(Game.keys['space'] && this.beer < 0){
+  if(Game.keys['space'] && this.beerTime < 0){
     Game.keys['space'] = false;
-    this.beer = this.reloadTime;
-    this.board.add(new Beer(this.x, this.y));
+    this.beerTime = this.reloadTime;
+    this.board.add(new Beer(this.x, this.y, 50));
   }
 };
 
 /* Beer Class */
-var Beer = function(x,y) {
+var Beer = function(x, y, vx) {
   this.setup('beer');
   this.x = x - this.w;
   this.y = y; 
-  this.vx = -50;
+  this.vx = -vx;
 };
 
 Beer.prototype = new Sprite();
@@ -205,11 +206,6 @@ Beer.prototype.type = OBJECT_BEER;
 
 Beer.prototype.step = function(dt)  {
   this.x += this.vx * dt;
-  var collision = this.board.collide(this,OBJECT_NPC);
-  if(collision) {
-    collision.hit(this.damage);
-    this.board.remove(this);
-  }
 };
 
 /* Class Client*/
