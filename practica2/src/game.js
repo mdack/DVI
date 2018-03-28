@@ -7,11 +7,27 @@ var sprites = {
  background: { sx: 0, sy: 480, w: 512, h: 480, frames: 1 }
 };
 
+var customerPositions = [
+    {x:125, y:80},
+    {x:95, y:176},
+    {x:65, y:272},
+    {x:35, y:368}];
+
 var OBJECT_PLAYER = 1,
     OBJECT_BEER = 2,
     OBJECT_NPC = 4,
     OBJECT_GLASS = 8,
-    OBJECT_POWERUP = 16;
+    OBJECT_DEADZONE = 16;
+
+var deadZones = [
+    {x:335, y:104}, //primero derecha
+    {x:367, y:195}, //segundo derecha
+    {x:399, y:291},
+    {x:431, y:387},
+    {x:114, y:100},
+    {x:82, y:197},
+    {x:49, y:293},
+    {x:16, y:390}];
 
 var startGame = function() {
   var ua = navigator.userAgent.toLowerCase();
@@ -49,10 +65,14 @@ var playGame = function() {
 
   var game = new GameBoard();
   game.add(new Player());
-  game.add(new Client(0, 90, 25));
+  game.add(new Client(125, 90, 25));
 
   Game.setBoard(0, board);
   Game.setBoard(1, game);
+
+  for (var i = 0; i < deadZones.length; i++) {
+    board.add(Object.create(new DeadZone(deadZones[i].x, deadZones[i].y)));
+  }
   /*
   board.add(new PlayerShip());
   board.add(new Level(level1,winGame));
@@ -211,6 +231,10 @@ Beer.prototype.step = function(dt)  {
   if(this.board.collide(this, OBJECT_NPC)){
     this.board.remove(this);
   }
+
+  if(this.board.collide(this, OBJECT_DEADZONE)){
+    this.board.remove(this);
+  }
 };
 
 /* Class Client*/
@@ -219,20 +243,44 @@ var Client = function(x, y, vx) {
   this.x = x;
   this.y = y;
   this.vx = vx;
+  /*
+  this.clients = [
+    {sx: 0, sy: 0, w: 134, h: 134, frames: 1},
+    {sx: 0, sy: 137, w: 134, h: 134, frames: 1},
+    {sx: 0, sy: 267, w: 134, h: 134, frames: 1},
+    {sx: 0, sy: 403, w: 134, h: 134, frames: 1}
+  ];
+
+  this.s = this.clients[Math.floor(Math.random()*4)];
+
+  this.draw = function(ctx){
+    this.image = new Image();
+    this.image.src = 'img/customers_sheet.png';
+    ctx.drawImage(this.image,
+                     this.s.sx,
+                     this.s.sy, 
+                     this.s.w, this.s.h, 
+                     Math.floor(this.x), Math.floor(this.y),
+                     33, 33);
+  }*/
+
 };
 
 Client.prototype = new Sprite();
 Client.prototype.type = OBJECT_NPC;
 
 Client.prototype.step = function(dt){
-  this.x += this.vx * dt;
+    this.x += this.vx * dt;
 
-  if(this.board.collide(this, OBJECT_BEER)) {
-    this.board.add(new Glass(this.x, this.y, 50));
-    this.board.remove(this);
-  }
+    if(this.board.collide(this, OBJECT_BEER)) {
+      this.board.add(new Glass(this.x, this.y, 50));
+      this.board.remove(this);
+    }
+
+    if(this.board.collide(this, OBJECT_DEADZONE)){
+      this.board.remove(this);
+    }
 }
-
 
 /* Glass Class */
 var Glass = function(x, y, vx){
@@ -251,7 +299,37 @@ Glass.prototype.step = function(dt){
   if(this.board.collide(this, OBJECT_PLAYER)) {
     this.board.remove(this);
   }
+
+  if(this.board.collide(this, OBJECT_DEADZONE)) {
+    this.board.remove(this);
+  }
+
 }
+
+/* DeadZone Class */
+var DeadZone = function(x, y){
+  this.x = x;
+  this.y = y;
+  this.w = 10;
+  this.h = 60;
+
+  this.draw = function(ctx){
+    ctx.fillStyle = "rgba(244, 246, 246, 0.1)";
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+  };
+
+  this.step = function(dt){
+     var collision = this.board.collide(this, OBJECT_GLASS | OBJECT_BEER | OBJECT_NPC);
+    if(collision){
+      collision.hit(this.damage);
+    }
+  };
+}
+
+DeadZone.prototype = new Sprite();
+DeadZone.prototype.type = OBJECT_DEADZONE;
+
+
 
 window.addEventListener("load", function() {
   Game.initialize("game",sprites,playGame);
