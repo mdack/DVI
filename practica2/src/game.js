@@ -13,6 +13,14 @@ var customerPositions = [
     {x:65, y:272},
     {x:35, y:368}];
 
+var level1 = [
+  [0, 4000, 500],
+  [6000, 13000, 800],
+  [12000, 16000, 400],
+  [18200, 20000, 500],
+  [22000, 25000, 400]
+];
+
 var OBJECT_PLAYER = 1,
     OBJECT_BEER = 2,
     OBJECT_NPC = 4,
@@ -45,19 +53,6 @@ var startGame = function() {
                                   playGame));
 };
 
-var level1 = [
- // Start,   End, Gap,  Type,   Override
-  [ 0,      4000,  500, 'step' ],
-  [ 6000,   13000, 800, 'ltr' ],
-  [ 10000,  16000, 400, 'circle' ],
-  [ 17800,  20000, 500, 'straight', { x: 50 } ],
-  [ 18200,  20000, 500, 'straight', { x: 90 } ],
-  [ 18200,  20000, 500, 'straight', { x: 10 } ],
-  [ 22000,  25000, 400, 'wiggle', { x: 150 }],
-  [ 22000,  25000, 400, 'wiggle', { x: 100 }]
-];
-
-
 
 var playGame = function() {
   var board = new GameBoard();
@@ -67,18 +62,14 @@ var playGame = function() {
   game.add(new Player());
   game.add(new Client(125, 90, 25));
 
+  for (var i = 0; i < deadZones.length; i++) {
+    game.add(Object.create(new DeadZone(deadZones[i].x, deadZones[i].y)));
+  }
+
   Game.setBoard(0, board);
   Game.setBoard(1, game);
 
-  for (var i = 0; i < deadZones.length; i++) {
-    board.add(Object.create(new DeadZone(deadZones[i].x, deadZones[i].y)));
-  }
-  /*
-  board.add(new PlayerShip());
-  board.add(new Level(level1,winGame));
-  Game.setBoard(3,board);
-  Game.setBoard(5,new GamePoints(0));
-  */
+
 };
 
 var winGame = function() {
@@ -328,9 +319,83 @@ var DeadZone = function(x, y){
 
 DeadZone.prototype = new Sprite();
 DeadZone.prototype.type = OBJECT_DEADZONE;
+/*
+const Spawner = function(pos, levelData, callback) {
+  this.initialLD = [];
+  this.pos = pos;
+  this.client = new Client(pos.x, pos.y, 100, 'NPC');
+  this.nclients = 0;
 
+  for (let i = 0; i < levelData.length; i++) {
+    this.initialLD.push(Object.create(levelData[i]));
+    this.nclients += Math.round(
+      (levelData[i][1] - levelData[i][0]) / levelData[i][2]
+    );
+  }
 
+  this.callback = callback;
 
+  this.reset = function() {
+    this.t = 0;
+    GameManager.notifyClients(this.nclients);
+    this.levelData = [];
+    for (let i = 0; i < this.initialLD.length; i++) {
+      this.levelData.push(Object.create(this.initialLD[i]));
+    }
+  };
+  this.reset();
+};
+
+Spawner.prototype.step = function(dt) {
+  let idx = 0;
+  let remove = [];
+  let curClient = null;
+
+  // Update the current time offset
+  this.t += dt * 1000;
+
+  while ((curClient = this.levelData[idx]) && curClient[0] < this.t + 2000) {
+    // Check if we've passed the end time
+    if (this.t > curClient[1]) {
+      remove.push(curClient);
+    } else if (curClient[0] < this.t) {
+      // Get the client definition blueprint
+      let client = clients[curClient[3]];
+
+      // Add a new enemy with the blueprint and override
+      this.board.add(
+        Object.create(this.client, {
+          vx: {
+            value: client.vx,
+            enumerable: true,
+          },
+          sprite: {
+            value: client.sprite,
+            enumerable: true,
+          },
+        })
+      );
+
+      // Increment the start time by the gap
+      curClient[0] += curClient[2];
+    }
+    idx++;
+  }
+
+  // Remove any objects from the levelData that have passed
+  for (let i = 0, len = remove.length; i < len; i++) {
+    const remIdx = this.levelData.indexOf(remove[i]);
+    if (remIdx != -1) this.levelData.splice(remIdx, 1);
+  }
+
+  // If there are no more enemies on the board or in
+  // levelData, this level is done
+  if (this.levelData.length === 0 && this.board.cnt[OBJECT_CLIENT] === 0) {
+    if (this.callback) this.callback();
+  }
+};
+
+Spawner.prototype.draw = function(ctx) {};*/
 window.addEventListener("load", function() {
   Game.initialize("game",sprites,playGame);
 });

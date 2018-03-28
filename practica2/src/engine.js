@@ -306,8 +306,8 @@ Sprite.prototype.hit = function(damage) {
   this.board.remove(this);
 };
 
-
-var Level = function(levelData,callback) {
+/* Spawner Class */
+var Spawner = function(position, levelData, callback) {
   this.levelData = [];
   for(var i =0; i<levelData.length; i++) {
     this.levelData.push(Object.create(levelData[i]));
@@ -316,7 +316,7 @@ var Level = function(levelData,callback) {
   this.callback = callback;
 };
 
-Level.prototype.step = function(dt) {
+Spawner.prototype.step = function(dt) {
   var idx = 0, remove = [], curShip = null;
 
   // Update the current time offset
@@ -357,7 +357,7 @@ Level.prototype.step = function(dt) {
 
 };
 
-Level.prototype.draw = function(ctx) { };
+Spawner.prototype.draw = function(ctx) { };
 
 
 var TouchControls = function() {
