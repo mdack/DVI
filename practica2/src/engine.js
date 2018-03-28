@@ -309,6 +309,9 @@ Sprite.prototype.hit = function(damage) {
 /* Spawner Class */
 var Spawner = function(position, levelData, callback) {
   this.levelData = [];
+  this.position = this.position;
+  this.nClientes = Math.floor(Math.random() * 30 + 61);
+
   for(var i =0; i<levelData.length; i++) {
     this.levelData.push(Object.create(levelData[i]));
   }
@@ -317,28 +320,21 @@ var Spawner = function(position, levelData, callback) {
 };
 
 Spawner.prototype.step = function(dt) {
-  var idx = 0, remove = [], curShip = null;
+  var idx = 0, remove = [], curClient = null;
 
   // Update the current time offset
   this.t += dt * 1000;
 
-  //   Start, End,  Gap, Type,   Override
-  // [ 0,     4000, 500, 'step', { x: 100 } ]
-  while((curShip = this.levelData[idx]) && 
-        (curShip[0] < this.t + 2000)) {
+  while((curClient = this.levelData[idx]) && (curClient[0] < this.t + 2000)) {
     // Check if we've passed the end time 
-    if(this.t > curShip[1]) {
-      remove.push(curShip);
-    } else if(curShip[0] < this.t) {
-      // Get the enemy definition blueprint
-      var enemy = enemies[curShip[3]],
-          override = curShip[4];
-
-      // Add a new enemy with the blueprint and override
-      this.board.add(new Enemy(enemy,override));
+    if(this.t > curClient[1]) {
+      remove.push(curClient);
+    } else if(curClient[0] < this.t) {
+      // Add a new client
+      this.board.add(Object.create(new Client(this.position.x, this.position.y, 25)));
 
       // Increment the start time by the gap
-      curShip[0] += curShip[2];
+      curClient[0] += curClient[2];
     }
     idx++;
   }
@@ -351,7 +347,7 @@ Spawner.prototype.step = function(dt) {
 
   // If there are no more enemies on the board or in 
   // levelData, this level is done
-  if(this.levelData.length === 0 && this.board.cnt[OBJECT_ENEMY] === 0) {
+  if(this.levelData.length === 0 && this.board.cnt[OBJECT_NPC] === 0) {
     if(this.callback) this.callback();
   }
 
