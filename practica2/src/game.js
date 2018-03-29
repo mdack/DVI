@@ -7,17 +7,11 @@ var sprites = {
  background: { sx: 0, sy: 480, w: 512, h: 480, frames: 1 }
 };
 
-var customerPositions = [
-    {x:125, y:80},
-    {x:95, y:176},
-    {x:65, y:272},
-    {x:35, y:368}];
-
 var level1 = [
-  [0, 4000, 500],
-  [6000, 13000, 800],
-  [12000, 16000, 400],
-  [18200, 20000, 500]
+  [0, 4000, 500, {x:125, y:80}],
+  [6000, 13000, 800, {x:95, y:176}],
+  [12000, 16000, 400, {x:65, y:272}],
+  [18200, 20000, 500, {x:35, y:368}]
 ];
 
 var OBJECT_PLAYER = 1,
@@ -47,9 +41,7 @@ var startGame = function() {
     Game.setBoard(1,new Starfield(50,0.6,100));
     Game.setBoard(2,new Starfield(100,1.0,50));
   }  
-  Game.setBoard(3,new TitleScreen("Alien Invasion", 
-                                  "Press fire to start playing",
-                                  playGame));
+  Game.setBoard(3,new TitleScreen("Tapper", "Press space to start playing", playGame));
 };
 
 
@@ -59,11 +51,12 @@ var playGame = function() {
 
   var game = new GameBoard();
   game.add(new Player());
-  game.add(new Client(125, 90, 25));
 
   for (var i = 0; i < deadZones.length; i++) {
-    game.add(Object.create(new DeadZone(deadZones[i].x, deadZones[i].y)));
+    board.add(Object.create(new DeadZone(deadZones[i].x, deadZones[i].y)));
   }
+
+  //board.add(new Spawner(level1, winGame));
 
   Game.setBoard(0, board);
   Game.setBoard(1, game);
@@ -72,15 +65,11 @@ var playGame = function() {
 };
 
 var winGame = function() {
-  Game.setBoard(3,new TitleScreen("You win!", 
-                                  "Press fire to play again",
-                                  playGame));
+  Game.setBoard(3,new TitleScreen("You win!", "Press fire to play again", playGame));
 };
 
 var loseGame = function() {
-  Game.setBoard(3,new TitleScreen("You lose!", 
-                                  "Press fire to play again",
-                                  playGame));
+  Game.setBoard(3,new TitleScreen("You lose!", "Press space to play again", playGame));
 };
 
 var Starfield = function(speed,opacity,numStars,clear) {
@@ -224,6 +213,7 @@ Beer.prototype.step = function(dt)  {
 
   if(this.board.collide(this, OBJECT_DEADZONE)){
     this.board.remove(this);
+    GameManager.lose();
   }
 };
 
@@ -265,10 +255,12 @@ Client.prototype.step = function(dt){
     if(this.board.collide(this, OBJECT_BEER)) {
       this.board.add(new Glass(this.x, this.y, 50));
       this.board.remove(this);
+      GameManager.clientServed();
     }
 
     if(this.board.collide(this, OBJECT_DEADZONE)){
       this.board.remove(this);
+      GameManager.lose();
     }
 }
 
@@ -288,10 +280,12 @@ Glass.prototype.step = function(dt){
   
   if(this.board.collide(this, OBJECT_PLAYER)) {
     this.board.remove(this);
+    GameManager.beerServed();
   }
 
   if(this.board.collide(this, OBJECT_DEADZONE)) {
     this.board.remove(this);
+    GameManager.lose();
   }
 
 }
@@ -318,6 +312,33 @@ var DeadZone = function(x, y){
 
 DeadZone.prototype = new Sprite();
 DeadZone.prototype.type = OBJECT_DEADZONE;
+
+/* GameManager Class */
+var GameManager = new function(){
+  this.nClients = 0;
+  this.nGlasses = 0;
+
+  this.lose = function(){
+    console.log("You lose!");
+  }
+
+  this.win = function(){
+    console.log("You win!");
+  }
+
+  this.beerServed = function(){
+    this.nGlasses++;
+  }
+
+  this.clientServed = function(){
+    this.nClients--;
+  }
+
+  this.setClients = function(n){
+    this.nClients = n;
+  }
+}
+
 
 window.addEventListener("load", function() {
   Game.initialize("game",sprites,playGame);

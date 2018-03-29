@@ -307,9 +307,8 @@ Sprite.prototype.hit = function(damage) {
 };
 
 /* Spawner Class */
-var Spawner = function(position, levelData, callback) {
+var Spawner = function(levelData, callback) {
   this.levelData = [];
-  this.position = this.position;
   this.nClientes = Math.floor(Math.random() * 30 + 61);
 
   for(var i =0; i<levelData.length; i++) {
@@ -325,13 +324,16 @@ Spawner.prototype.step = function(dt) {
   // Update the current time offset
   this.t += dt * 1000;
 
+  GameManager.setClients(this.nClientes);
+
   while((curClient = this.levelData[idx]) && (curClient[0] < this.t + 2000)) {
     // Check if we've passed the end time 
     if(this.t > curClient[1]) {
       remove.push(curClient);
     } else if(curClient[0] < this.t) {
+      var pos = curClient[3];
       // Add a new client
-      this.board.add(Object.create(new Client(this.position.x, this.position.y, 25)));
+      this.board.add(Object.create(new Client(pos.x, pos.y, 25)));
 
       // Increment the start time by the gap
       curClient[0] += curClient[2];
