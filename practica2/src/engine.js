@@ -309,10 +309,11 @@ Sprite.prototype.hit = function(damage) {
 /* Spawner Class */
 var Spawner = function(levelData, callback) {
   this.levelData = [];
-  this.nClientes = Math.floor(Math.random() * 30 + 61);
+  this.nClientes = 0;
 
   for(var i =0; i<levelData.length; i++) {
     this.levelData.push(Object.create(levelData[i]));
+     this.nClientes += Math.round((levelData[i][1] - levelData[i][0]) / levelData[i][2]);
   }
   this.t = 0;
   this.callback = callback;
@@ -333,7 +334,8 @@ Spawner.prototype.step = function(dt) {
     } else if(curClient[0] < this.t) {
       var pos = curClient[3];
       // Add a new client
-      this.board.add(Object.create(new Client(pos.x, pos.y, 25)));
+      var vx = Math.floor(Math.random() * 20 + 55);
+      this.board.add(Object.create(new Client(pos.x, pos.y, vx)));
 
       // Increment the start time by the gap
       curClient[0] += curClient[2];

@@ -8,10 +8,10 @@ var sprites = {
 };
 
 var level1 = [
-  [0, 4000, 500, {x:125, y:80}],
-  [6000, 13000, 800, {x:95, y:176}],
-  [12000, 16000, 400, {x:65, y:272}],
-  [18200, 20000, 500, {x:35, y:368}]
+  [0, 4000, 1500, {x:125, y:80}],
+  [6000, 13000, 1700, {x:95, y:176}],
+  [12000, 20000, 2000, {x:65, y:272}],
+  [18200, 40000, 2000, {x:35, y:368}]
 ];
 
 var OBJECT_PLAYER = 1,
@@ -56,7 +56,7 @@ var playGame = function() {
     board.add(Object.create(new DeadZone(deadZones[i].x, deadZones[i].y)));
   }
 
-  //board.add(new Spawner(level1, winGame));
+  board.add(new Spawner(level1, winGame));
 
   Game.setBoard(0, board);
   Game.setBoard(1, game);
@@ -251,7 +251,7 @@ Client.prototype.type = OBJECT_NPC;
 
 Client.prototype.step = function(dt){
     this.x += this.vx * dt;
-
+    
     if(this.board.collide(this, OBJECT_BEER)) {
       this.board.add(new Glass(this.x, this.y, 50));
       this.board.remove(this);
@@ -277,7 +277,7 @@ Glass.prototype.type = OBJECT_GLASS;
 
 Glass.prototype.step = function(dt){
   this.x += this.vx * dt;
-  
+
   if(this.board.collide(this, OBJECT_PLAYER)) {
     this.board.remove(this);
     GameManager.beerServed();
@@ -303,10 +303,6 @@ var DeadZone = function(x, y){
   };
 
   this.step = function(dt){
-     var collision = this.board.collide(this, OBJECT_GLASS | OBJECT_BEER | OBJECT_NPC);
-    if(collision){
-      collision.hit(this.damage);
-    }
   };
 }
 
