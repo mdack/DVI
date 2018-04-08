@@ -32,6 +32,7 @@ var deadZones = [
 ];
 
 var spawner;
+var finished = true;
 
 var startGame = function() {
     var ua = navigator.userAgent.toLowerCase();
@@ -46,6 +47,10 @@ var startGame = function() {
     }
     Game.setBoard(3, new TitleScreen("Tapper", "Press space to start playing", playGame));
 };
+
+var initScreen = function() {
+    Game.setBoard(3, new TitleScreen("Tapper", "Press space to start playing", playGame));
+}
 
 
 var playGame = function() {
@@ -66,18 +71,23 @@ var playGame = function() {
 
     spawner.board.add(p);
 
+    Game.setBoard(3, undefined);
     Game.setBoard(0, board);
     Game.setBoard(1, game);
-
-
 };
 
 var winGame = function() {
-    Game.setBoard(3, new TitleScreen("You win!", "Press fire to play again", playGame));
+    Game.setBoard(3, new TitleScreen("You win!", "Press space to play again", playGame));
+
+    Game.setBoard(0, undefined);
+    Game.setBoard(1, undefined);
 };
 
 var loseGame = function() {
     Game.setBoard(3, new TitleScreen("You lose!", "Press space to play again", playGame));
+
+    Game.setBoard(0, undefined);
+    Game.setBoard(1, undefined);
 };
 
 var Starfield = function(speed, opacity, numStars, clear) {
@@ -148,7 +158,11 @@ var Scene = function() {
 
 Scene.prototype = new Sprite();
 
-Scene.prototype.step = function(dt) {}
+Scene.prototype.step = function(dt) {
+    if (Game.keys['space'] && finished) {
+        GameManager.start();
+    }
+}
 
 /* Player Class */
 var Player = function() {
@@ -321,12 +335,19 @@ var GameManager = new function() {
     this.nClients = 0;
     this.nGlasses = 0;
 
+    this.start = function() {
+        playGame();
+        finished = false;
+    }
+
     this.lose = function() {
-        console.log("You lose!");
+        loseGame();
+        finished = true;
     }
 
     this.win = function() {
-        console.log("You win!");
+        winGame();
+        finished = true;
     }
 
     this.beerServed = function() {
@@ -344,5 +365,5 @@ var GameManager = new function() {
 
 
 window.addEventListener("load", function() {
-    Game.initialize("game", sprites, playGame);
+    Game.initialize("game", sprites, initScreen);
 });
