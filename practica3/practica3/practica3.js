@@ -7,15 +7,6 @@ var game = function(){
                 height: 480,
     		}).controls().touch();
 
-    Q.scene("level1", function(stage){
-    	Q.stageTMX("level.tmx", stage);
-    })
-
-    Q.loadTMX("level.tmx", function(){
-        //Q.stageScene("mainTitle.png")
-    	Q.stageScene("level1");
-    })
-
     Q.Sprite.extend("Mario", {
         init: function(p) {
             this._super(p, {
@@ -48,9 +39,17 @@ var game = function(){
         "mario_die":{frames: [12], rate: 1/10, loop: false}
     });
 
-    Q.load(["mario_small.png", "mario_small.json"], function(){
+    Q.scene("level1", function(stage){
+        Q.stageTMX("level.tmx", stage);
+
+        var player = stage.insert(new Q.Mario());
+        stage.add("viewport").follow(player);
+    })
+
+    Q.loadTMX(["mario_small.png", "mario_small.json"], function(){
         //this will create the sprite sheets
         Q.compileSheets("mario_small.png", "mario_small.json");
+        Q.stageScene("level1");
     })
 
 };
