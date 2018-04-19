@@ -46,7 +46,7 @@ var game = function(){
         stage.add("viewport").follow(player);
     })
 
-    Q.loadTMX(["mario_small.png", "mario_small.json"], function(){
+    Q.load("level.json, mario_small.png, mario_small.json", function(){
         //this will create the sprite sheets
         Q.compileSheets("mario_small.png", "mario_small.json");
         Q.stageScene("level1");
