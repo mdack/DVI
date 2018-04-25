@@ -17,6 +17,8 @@ var game = function(){
             });
 
             this.add("2d, platformerControls");
+
+            this.on("win", this, "win");
         },
         step: function(dt){
             if(this.p.vx > 0){
@@ -122,6 +124,27 @@ var game = function(){
         "bloopa_walk": {frames: [0,1], rate: 1/3},
         "bloopa_die": {frames: [2], rate: 1/3, loop:false}
     });
+
+    Q.Sprite.extend("Princess",{
+            
+        init: function(p) {
+            this._super(p, {
+                asset: "princess.png",
+                frame: 0,
+                x: 2600,
+                y: 490,
+                sensor: true,
+            });
+
+            this.on("sensor");
+        },
+
+        sensor: function() {
+            Q.stageScene("winGame", 1);
+            this.p.sensor = false;
+            Q("Mario").trigger("win");
+        } 
+    });     
 
     Q.scene("endGame", function(stage) {
         var container = stage.insert(new Q.UI.Container({
