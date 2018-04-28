@@ -47,9 +47,6 @@ var game = function(){
         },
         win: function(){
             Q.stageScene("winGame", 1);
-        },
-        die: function(){
-
         }
     });
 
@@ -73,19 +70,20 @@ var game = function(){
                 vx: 100
             });
 
-            this.add("2d, aiBounce");
+            this.add("2d, aiBounce, animation");
 
             this.on("bump.left,bump.right",function(collision) {
                 if(collision.obj.isA("Mario")) {
-                    //Q.stageScene("endGame",1, { label: "You Died" });
+                    Q.stageScene("endGame",1, { label: "You Died" });
                     collision.obj.destroy();
                 }
             });
 
             this.on("bump.top", function(collision){
                 if(collision.obj.isA("Mario")){
-                    this.entity.play("goomba_die");
+                    this.play("goomba_die");
                     collision.obj.p.vy = -300;
+                    this.destroy();
                 }
             });
         },
@@ -95,8 +93,8 @@ var game = function(){
     });
 
     Q.animations("goomba_anim", {
-        "goomba_walk": {frames: [1], rate: 1/5},
-        "goomba_die": {frames: [2,3], rate: 1/3, loop:false}
+        "goomba_walk": {frames: [0], rate: 1/5},
+        "goomba_die": {frames: [1, 2], rate: 1/3, loop:false}
     });
 
     Q.Sprite.extend("Bloopa", {
@@ -112,7 +110,7 @@ var game = function(){
                 collisioned: false
             });
 
-            this.add("2d, aiBounce");
+            this.add("2d, aiBounce, animation");
 
             this.on("bump.left,bump.right, bump.bottom",function(collision) {
                 if(collision.obj.isA("Mario")) {
@@ -123,8 +121,9 @@ var game = function(){
 
             this.on("bump.top", function(collision){
                 if(collision.obj.isA("Mario")){
-                    this.entity.play("bloopa_die");
+                    this.play("bloopa_die");
                     collision.obj.p.vy = -300;
+                    this.destroy();
                 }
             });
         },
@@ -214,8 +213,8 @@ var game = function(){
         Q.stageTMX("level.tmx", stage);
 
         var player = stage.insert(new Q.Mario());
-        //stage.insert(new Q.Goomba());
-        //stage.insert(new Q.Bloopa());
+        stage.insert(new Q.Goomba());
+        stage.insert(new Q.Bloopa());
         stage.add("viewport").follow(player);
         stage.viewport.offsetX = -90;
         stage.viewport.offsetY = 160;
