@@ -268,11 +268,23 @@ var game = function(){
         var player = stage.insert(new Q.Mario());
         stage.insert(new Q.Goomba());
         stage.insert(new Q.Bloopa());
+        stage.insert(new Q.Bloopa({x: 1820, y: 230}));
+        stage.insert(new Q.Bloopa({x: 1870, y: 350}));
+        stage.insert(new Q.Goomba({x: 1120, y: 350}));
+        stage.insert(new Q.Goomba({x: 1750, y: 420}));
         stage.insert(new Q.Princess());
         stage.insert(new Q.Coin({x: 315, y: 400}));
         stage.insert(new Q.Coin({x: 447, y: 318}));
         stage.insert(new Q.Coin({x: 470, y: 370}));
         stage.insert(new Q.Coin({x: 490, y: 318}));
+        stage.insert(new Q.Coin({x: 1530, y: 420}));
+        stage.insert(new Q.Coin({x: 1600, y: 420}));
+        stage.insert(new Q.Coin({x: 1950, y: 270}));
+        stage.insert(new Q.Coin({x: 2000, y: 270}));
+        stage.insert(new Q.Coin({x: 2725, y: 380}));
+        stage.insert(new Q.Coin({x: 2750, y: 400}));
+        stage.insert(new Q.Coin({x: 2775, y: 420}));
+        stage.insert(new Q.Coin({x: 2800, y: 440}));
         stage.insert(new Q.Score());
 
         stage.add("viewport").follow(player);
