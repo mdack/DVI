@@ -46,6 +46,7 @@ var game = function(){
             
         },
         win: function(){
+            this.playing = false;
             Q.stageScene("winGame", 1);
         }
     });
@@ -151,16 +152,17 @@ var game = function(){
             this._super(p, {
                 asset: "princess.png",
                 frame: 0,
-                x: 2600,
-                y: 490
+                x: 3140,
+                y: 520
             });
+            this.add("2d, aiBounce");
 
-            this.on("bump.right, bump.left, bump.top", this, "sensor");
+            this.on("bump.right, bump.left, bump.top", "sensor");
         },
 
         sensor: function(collision) {
             if(collision.obj.isA("Mario")){
-                Q("Mario").trigger("win");
+                Q.stageScene("winGame",1, { label: "You win!" });
             }
         } 
     });     
@@ -185,7 +187,7 @@ var game = function(){
         var container = stage.insert(new Q.UI.Container({
                 x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
         })); 
-        var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC", label: "Mario wins!" }));
+        var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC", label: "Play Again" }));
         var label = container.insert(new Q.UI.Text({x:10, y: -10 - button.p.h, label: stage.options.label }));
         // When the button is clicked, clear all the stages
         // and restart the game.
@@ -215,6 +217,7 @@ var game = function(){
         var player = stage.insert(new Q.Mario());
         stage.insert(new Q.Goomba());
         stage.insert(new Q.Bloopa());
+        stage.insert(new Q.Princess());
         stage.add("viewport").follow(player);
         stage.viewport.offsetX = -90;
         stage.viewport.offsetY = 160;
