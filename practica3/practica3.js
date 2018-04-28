@@ -176,12 +176,12 @@ var game = function(){
                 gravity: 0
             });
 
-            this.add("2d, tween, animation");
-            this.on("coll");
+            this.add("2d, tween, animation, aiBounce");
+            this.on("bump.right, bump.left, bump.top, bump.bottom", "coll");
         },
         coll: function(collision){
-            if(collision.isA("Mario")){
-                this.animate({ x: this.p.x, y: this.p.y - 50, angle: 0}, Q.Easing.Quadratic.Out,{callback: function(){
+            if(collision.obj.isA("Mario")){
+                this.animate({ x: this.p.x, y: this.p.y - 50}, 0.3, Q.Easing.Quadratic.Out,{callback: function(){
                     this.destroy();
                 }}); 
                 Q.state.inc("score", 50);
@@ -213,7 +213,9 @@ var game = function(){
     });
 
     Q.scene("HUD", function(stage){
+        var container = stage.insert(new Q.UI.Container({x: 50, y:0}));
         stage.insert(new Q.Score());
+        container.fit(20);
     });
 
     Q.scene("endGame", function(stage) {
@@ -278,11 +280,12 @@ var game = function(){
         stage.viewport.offsetY = 160;
     })
 
-    Q.load("mario_small.png, mario_small.json, mainTitle.png, goomba.png, goomba.json, bloopa.json, bloopa.png, princess.png", function(){
+    Q.load("mario_small.png, mario_small.json, mainTitle.png, goomba.png, goomba.json, bloopa.json, bloopa.png, princess.png, coin.png, coin.json", function(){
         //this will create the sprite sheets
         Q.compileSheets("mario_small.png", "mario_small.json");
         Q.compileSheets("goomba.png", "goomba.json");
         Q.compileSheets("bloopa.png", "bloopa.json");
+        Q.compileSheets("coin.png", "coin.json");
         Q.loadTMX("level.tmx", function(){
             Q.stageScene("mainTitle");        
         });
