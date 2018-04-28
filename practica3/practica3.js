@@ -142,8 +142,8 @@ var game = function(){
     });
 
     Q.animations("bloopa_anim", {
-        "bloopa_walk": {frames: [0,1], rate: 1/3},
-        "bloopa_die": {frames: [2], rate: 1/3, loop:false}
+        "bloopa_walk": {frames: [0], rate: 1/3},
+        "bloopa_die": {frames: [1, 2], rate: 1/3, loop:false}
     });
 
     Q.Sprite.extend("Princess",{
@@ -165,7 +165,56 @@ var game = function(){
                 Q.stageScene("winGame",1, { label: "You win!" });
             }
         } 
-    });     
+    }); 
+
+    Q.Sprite.extend("Coin", {
+        init: function(p){
+            this._super(p, {
+                sheet: "coin", 
+                frame: 2,
+                sprite: "coin_anim", 
+                gravity: 0
+            });
+
+            this.add("2d, tween, animation");
+            this.on("coll");
+        },
+        coll: function(collision){
+            if(collision.isA("Mario")){
+                this.animate({ x: this.p.x, y: this.p.y - 50, angle: 0}, Q.Easing.Quadratic.Out,{callback: function(){
+                    this.destroy();
+                }}); 
+                Q.state.inc("score", 50);
+            }
+        },
+        step: function(dt){
+            this.play("coin_move");
+        }
+    });  
+
+    Q.animations("coin_anim", {
+        "coin_move": {frames: [0,1,2], rate: 1/3}
+    });
+
+    Q.UI.Text.extend("Score", {
+        init: function(p){
+            this._super({
+                label: "Score: 0",
+                x: 0,
+                y: 10
+            });
+
+            Q.state.on("change.score", this, "score");
+        },
+
+        score: function(score){
+            this.p.label = "Score: " + score;
+        }
+    });
+
+    Q.scene("HUD", function(stage){
+        stage.insert(new Q.Score());
+    });
 
     Q.scene("endGame", function(stage) {
         var container = stage.insert(new Q.UI.Container({
@@ -218,6 +267,12 @@ var game = function(){
         stage.insert(new Q.Goomba());
         stage.insert(new Q.Bloopa());
         stage.insert(new Q.Princess());
+        stage.insert(new Q.Coin({x: 315, y: 400}));
+        stage.insert(new Q.Coin({x: 447, y: 318}));
+        stage.insert(new Q.Coin({x: 470, y: 370}));
+        stage.insert(new Q.Coin({x: 490, y: 318}));
+        stage.insert(new Q.Score());
+
         stage.add("viewport").follow(player);
         stage.viewport.offsetX = -90;
         stage.viewport.offsetY = 160;
