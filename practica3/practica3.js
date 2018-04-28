@@ -12,22 +12,44 @@ var game = function(){
             this._super(p, {
                 sprite: "mario_anim",
                 sheet: "mario",
+                frame: 0,
                 x: 150,
-                y: 380
+                y: 380,
+                jumpSpeed: -400,
+                playing: true
             });
 
-            this.add("2d, platformerControls");
+            this.add("2d, platformerControls, animation");
 
             this.on("win", this, "win");
         },
         step: function(dt){
-            if(this.p.vx > 0){
-                this.play("marioR");
-            }else if(this.p.vx < 0){
-                this.play("marioL");
-            }else{
-                this.play("stand_" + this.p.direction);
+            if(this.p.playing){
+                if(this.p.y > 800){
+                    this.play("mario_die");
+                    this.playing = false;
+                    Q.stageScene("endGame",1, { label: "You Died" });
+                }
+
+                if(this.p.vx > 0){
+                    this.play("marioR");
+                }else if(this.p.vx < 0){
+                    this.play("marioL");
+                }else{
+                    this.play('stand_' + this.p.direction);
+                }
+
+                if(this.p.vy > 0){
+                    this.play("jumping_" + this.p.direction);
+                }
             }
+            
+        },
+        win: function(){
+            Q.stageScene("winGame", 1);
+        },
+        die: function(){
+
         }
     });
 
@@ -94,7 +116,7 @@ var game = function(){
 
             this.on("bump.left,bump.right, bump.bottom",function(collision) {
                 if(collision.obj.isA("Mario")) {
-                    //Q.stageScene("endGame",1, { label: "You Died" });
+                    Q.stageScene("endGame",1, { label: "You Died" });
                     collision.obj.destroy();
                 }
             });
@@ -133,10 +155,14 @@ var game = function(){
                 x: 2600,
                 y: 490
             });
+
+            this.on("bump.right, bump.left, bump.top", this, "sensor");
         },
 
-        sensor: function() {
-            Q("Mario").trigger("win");
+        sensor: function(collision) {
+            if(collision.obj.isA("Mario")){
+                Q("Mario").trigger("win");
+            }
         } 
     });     
 
@@ -175,7 +201,7 @@ var game = function(){
     Q.scene("mainTitle", function(stage){
         var container = stage.insert(new Q.UI.Container({x: Q.width, y: Q.height}));
         var button = container.insert(new Q.UI.Button({x: -Q.width/2, y: -Q.height/2, fill: "#CCCCCC", asset: "mainTitle.png"}));
-        var label = container.insert(new Q.UI.Text({x: 0, y: 10, label: "Press Enter or click to start", size: 18, color: "black"}));
+        //var label = container.insert(new Q.UI.Text({x: 0, y: 10, label: "Press Enter or click to start", size: 18, color: "black"}));
         button.on("click", function(){
             Q.clearStages();
             Q.stageScene("level1");
@@ -188,11 +214,11 @@ var game = function(){
         Q.stageTMX("level.tmx", stage);
 
         var player = stage.insert(new Q.Mario());
-        stage.insert(new Q.Goomba());
-        stage.insert(new Q.Bloopa());
+        //stage.insert(new Q.Goomba());
+        //stage.insert(new Q.Bloopa());
         stage.add("viewport").follow(player);
-        stage.viewport.offsetX = -100;
-        stage.viewport.offsetY = 150;
+        stage.viewport.offsetX = -90;
+        stage.viewport.offsetY = 160;
     })
 
     Q.load("mario_small.png, mario_small.json, mainTitle.png, goomba.png, goomba.json, bloopa.json, bloopa.png, princess.png", function(){
