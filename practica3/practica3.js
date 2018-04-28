@@ -117,7 +117,6 @@ var game = function(){
                 if (this.timeJump >= 2)
                     this.p.vy = 120;
                 }
-        }
     });
 
     Q.animations("bloopa_anim", {
@@ -132,16 +131,11 @@ var game = function(){
                 asset: "princess.png",
                 frame: 0,
                 x: 2600,
-                y: 490,
-                sensor: true,
+                y: 490
             });
-
-            this.on("sensor");
         },
 
         sensor: function() {
-            Q.stageScene("winGame", 1);
-            this.p.sensor = false;
             Q("Mario").trigger("win");
         } 
     });     
@@ -162,11 +156,26 @@ var game = function(){
         container.fit(20);
     });
 
+    Q.scene("winGame", function(stage){
+        var container = stage.insert(new Q.UI.Container({
+                x: Q.width/2, y: Q.height/2, fill: "rgba(0,0,0,0.5)"
+        })); 
+        var button = container.insert(new Q.UI.Button({ x: 0, y: 0, fill: "#CCCCCC", label: "Mario wins!" }));
+        var label = container.insert(new Q.UI.Text({x:10, y: -10 - button.p.h, label: stage.options.label }));
+        // When the button is clicked, clear all the stages
+        // and restart the game.
+        button.on("click",function() {
+        Q.clearStages();
+        Q.stageScene('level1');
+        });
+
+        container.fit(20);   
+    });
+
     Q.scene("mainTitle", function(stage){
         var container = stage.insert(new Q.UI.Container({x: Q.width, y: Q.height}));
         var button = container.insert(new Q.UI.Button({x: -Q.width/2, y: -Q.height/2, fill: "#CCCCCC", asset: "mainTitle.png"}));
         var label = container.insert(new Q.UI.Text({x: 0, y: 10, label: "Press Enter or click to start", size: 18, color: "black"}));
-        
         button.on("click", function(){
             Q.clearStages();
             Q.stageScene("level1");
@@ -179,15 +188,22 @@ var game = function(){
         Q.stageTMX("level.tmx", stage);
 
         var player = stage.insert(new Q.Mario());
+        stage.insert(new Q.Goomba());
+        stage.insert(new Q.Bloopa());
         stage.add("viewport").follow(player);
         stage.viewport.offsetX = -100;
         stage.viewport.offsetY = 150;
     })
 
-    Q.load("mario_small.png, mario_small.json", function(){
+    Q.load("mario_small.png, mario_small.json, mainTitle.png, goomba.png, goomba.json, bloopa.json, bloopa.png, princess.png", function(){
         //this will create the sprite sheets
         Q.compileSheets("mario_small.png", "mario_small.json");
-        Q.stageScene("level1");
+        Q.compileSheets("goomba.png", "goomba.json");
+        Q.compileSheets("bloopa.png", "bloopa.json");
+        Q.loadTMX("level.tmx", function(){
+            Q.stageScene("mainTitle");        
+        });
+
     })
 
 };
