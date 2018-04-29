@@ -61,6 +61,27 @@ var game = function() {
         "mario_die": { frames: [12], rate: 1 / 10, loop: false }
     });
 
+    Q.component("defaultEnemy", {
+        extend: {
+            onCollission: function(anim) {
+                this.on("bump.left,bump.right", function(collision) {
+                    if (collision.obj.isA("Mario")) {
+                        Q.stageScene("endGame", 1, { label: "You Died" });
+                        collision.obj.destroy();
+                    }
+                });
+
+                this.on("bump.top", function(collision) {
+                    if (collision.obj.isA("Mario")) {
+                        this.play(anim);
+                        collision.obj.p.vy = -300;
+                        this.destroy();
+                    }
+                });
+            }
+        }
+    })
+
     Q.Sprite.extend("Goomba", {
         init: function(p) {
             this._super(p, {
@@ -71,22 +92,9 @@ var game = function() {
                 vx: 100
             });
 
-            this.add("2d, aiBounce, animation");
+            this.add("2d, aiBounce, animation, defaultEnemy");
 
-            this.on("bump.left,bump.right", function(collision) {
-                if (collision.obj.isA("Mario")) {
-                    Q.stageScene("endGame", 1, { label: "You Died" });
-                    collision.obj.destroy();
-                }
-            });
-
-            this.on("bump.top", function(collision) {
-                if (collision.obj.isA("Mario")) {
-                    this.play("goomba_die");
-                    collision.obj.p.vy = -300;
-                    this.destroy();
-                }
-            });
+            this.onCollission("goomba_die");
         },
         step: function(dt) {
 
@@ -111,22 +119,9 @@ var game = function() {
                 collisioned: false
             });
 
-            this.add("2d, aiBounce, animation");
+            this.add("2d, aiBounce, animation, defaultEnemy");
 
-            this.on("bump.left,bump.right, bump.bottom", function(collision) {
-                if (collision.obj.isA("Mario")) {
-                    Q.stageScene("endGame", 1, { label: "You Died" });
-                    collision.obj.destroy();
-                }
-            });
-
-            this.on("bump.top", function(collision) {
-                if (collision.obj.isA("Mario")) {
-                    this.play("bloopa_die");
-                    collision.obj.p.vy = -300;
-                    this.destroy();
-                }
-            });
+            this.onCollission("bloopa_die");
         },
         step: function(dt) {
             this.timeJump += dt;
