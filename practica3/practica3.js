@@ -1,11 +1,15 @@
 var game = function() {
 
-    var Q = window.Q = Quintus()
+    var Q = window.Q = Quintus({ audioSupported: ['mp3', 'ogg'] })
         .include("Scenes, Sprites, Input, UI, Touch, TMX, Anim, 2D")
         .setup({
             width: 320,
             height: 480,
         }).controls().touch();
+
+    Q.include("Audio").enableSound();
+
+    Q.load(["coin.mp3", "music_die.mp3", "music_level_complete.mp3", "music_main.mp3"]);
 
     Q.Sprite.extend("Mario", {
         init: function(p) {
@@ -178,6 +182,7 @@ var game = function() {
         coll: function(collision) {
             if (collision.obj.isA("Mario") && !this.collisioned) {
                 this.collisioned = true;
+                Q.audio.play("coin.mp3");
                 this.animate({ x: this.p.x, y: this.p.y - 50 }, 0.3, Q.Easing.Quadratic.Out, {
                     callback: function() {
                         this.destroy();
@@ -235,7 +240,8 @@ var game = function() {
             Q.stageScene("HUD");
             Q.stageScene('level1');
         });
-
+        Q.audio.stop();
+        Q.audio.play("music_die.mp3");
         container.fit(20);
     });
 
@@ -255,6 +261,8 @@ var game = function() {
             Q.stageScene('level1');
         });
 
+        Q.audio.stop();
+        Q.audio.play("music_level_complete.mp3");
         container.fit(20);
     });
 
@@ -302,6 +310,8 @@ var game = function() {
         stage.add("viewport").follow(player);
         stage.viewport.offsetX = -90;
         stage.viewport.offsetY = 160;
+
+        Q.audio.play("music_main.mp3", { loop: true });
     })
 
     Q.load("mario_small.png, mario_small.json, mainTitle.png, goomba.png, goomba.json, bloopa.json, bloopa.png, princess.png, coin.png, coin.json", function() {
