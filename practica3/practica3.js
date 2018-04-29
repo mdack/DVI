@@ -32,6 +32,7 @@ var game = function() {
                 if (this.p.y > 800) {
                     this.play("mario_die");
                     this.playing = false;
+                    this.destroy();
                     Q.stageScene("endGame", 1, { label: "You Died" });
                 }
 
