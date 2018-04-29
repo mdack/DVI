@@ -9,7 +9,7 @@ var game = function() {
 
     Q.include("Audio").enableSound();
 
-    Q.load(["coin.mp3", "music_die.mp3", "music_level_complete.mp3", "music_main.mp3"]);
+    Q.load(["coin.mp3", "music_die.mp3", "music_level_complete.ogg", "music_main.mp3"]);
 
     Q.Sprite.extend("Mario", {
         init: function(p) {
@@ -69,7 +69,7 @@ var game = function() {
     Q.component("defaultEnemy", {
         extend: {
             onCollission: function(anim) {
-                this.on("bump.left,bump.right", function(collision) {
+                this.on("bump.left,bump.right, bump.bottom", function(collision) {
                     if (collision.obj.isA("Mario")) {
                         Q.stageScene("endGame", 1, { label: "You Died" });
                         collision.obj.destroy();
@@ -263,7 +263,7 @@ var game = function() {
         });
 
         Q.audio.stop();
-        Q.audio.play("music_level_complete.mp3");
+        Q.audio.play("music_level_complete.ogg");
         container.fit(20);
     });
 
